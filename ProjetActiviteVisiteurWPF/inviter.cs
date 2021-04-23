@@ -17,6 +17,7 @@ namespace ProjetActiviteVisiteurWPF
         public int AC_NUM { get; set; }
         public short PRA_NUM { get; set; }
         public bool SPECIALISTEON { get; set; }
+        public bool PRESENCE { get; set; }
     
         public virtual activite_compl activite_compl { get; set; }
         public virtual praticien praticien { get; set; }

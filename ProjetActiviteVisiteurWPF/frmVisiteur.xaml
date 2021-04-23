@@ -1,0 +1,33 @@
+﻿<Window x:Class="ProjetActiviteVisiteurWPF.frmVisiteur"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetActiviteVisiteurWPF"
+        mc:Ignorable="d"
+        Title="frmVisiteur" Height="650" Width="1000" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Liste des rapports d'activité : " FontSize="30"></TextBlock>
+            <ListView Name="lvVisiteurs" FontSize="15" SelectionChanged="lvVisiteurs_SelectionChanged" Grid.Row="0" Margin="10,50,10,10" Background="AliceBlue">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nom" Width="140" DisplayMemberBinding="{Binding VIS_NOM}"></GridViewColumn>
+                        <GridViewColumn Header="Prenom" Width="140" DisplayMemberBinding="{Binding VIS_PRENOM}"></GridViewColumn>
+                        <GridViewColumn Header="Ville" Width="110" DisplayMemberBinding="{Binding VIS_VILLE}"></GridViewColumn>
+                        <GridViewColumn Header="Date d'embauche" Width="170" DisplayMemberBinding="{Binding VIS_DATEEMBAUCHE}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

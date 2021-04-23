@@ -120,6 +120,9 @@
     <Compile Include="activite_compl.cs">
       <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
     </Compile>
+    <Compile Include="frmVisiteur.xaml.cs">
+      <DependentUpon>frmVisiteur.xaml</DependentUpon>
+    </Compile>
     <Compile Include="inviter.cs">
       <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
     </Compile>
@@ -142,6 +145,10 @@
       <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
     </Compile>
     <Page Include="frmAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmVisiteur.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

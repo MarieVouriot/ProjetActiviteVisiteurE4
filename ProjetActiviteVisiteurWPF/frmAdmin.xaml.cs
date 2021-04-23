@@ -19,9 +19,46 @@ namespace ProjetActiviteVisiteurWPF
     /// </summary>
     public partial class frmAdmin : Window
     {
+        activite_visiteursEntities gst;
         public frmAdmin()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            gst = new activite_visiteursEntities();
+            lvVisiteurs.ItemsSource = gst.visiteur.ToList();
+            lvPraticiens.ItemsSource = gst.praticien.ToList();
+        }
+
+        private void lvVisiteurs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(lvVisiteurs.SelectedItem != null)
+            {
+                lvRapports.ItemsSource = gst.rapport_visite.ToList().FindAll(rap => rap.VIS_MATRICULE == (lvVisiteurs.SelectedItem as visiteur).VIS_MATRICULE);
+                lvActivites.ItemsSource = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == (lvVisiteurs.SelectedItem as visiteur).VIS_MATRICULE);
+            }
+        }
+
+        private void lvPraticiens_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(lvPraticiens.SelectedItem != null)
+            {
+                lvInvitations.ItemsSource = gst.inviter.ToList().FindAll(inv => inv.PRA_NUM == (lvPraticiens.SelectedItem as praticien).PRA_NUM);
+            }
+        }
+
+        private void btnAccepter_Click(object sender, RoutedEventArgs e)
+        {
+            if(lvPraticiens.SelectedItem == null)
+            {
+                MessageBox.Show("Veuillez séléctionner un praticien", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                gst.SaveChanges();
+            }
         }
     }
 }

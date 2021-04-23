@@ -5,8 +5,87 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetActiviteVisiteurWPF"
         mc:Ignorable="d"
-        Title="frmAdmin" Height="450" Width="800">
+        Title="frmAdmin" Height="650" Width="1200" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Liste des visiteurs : " FontSize="30"></TextBlock>
+            <ListView Name="lvVisiteurs" FontSize="15" SelectionChanged="lvVisiteurs_SelectionChanged" Grid.Row="0" Margin="10,50,10,10" Background="AliceBlue">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nom" Width="140" DisplayMemberBinding="{Binding VIS_NOM}"></GridViewColumn>
+                        <GridViewColumn Header="Prenom" Width="140" DisplayMemberBinding="{Binding VIS_PRENOM}"></GridViewColumn>
+                        <GridViewColumn Header="Ville" Width="110" DisplayMemberBinding="{Binding VIS_VILLE}"></GridViewColumn>
+                        <GridViewColumn Header="Date d'embauche" Width="170" DisplayMemberBinding="{Binding VIS_DATEEMBAUCHE}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="Liste des praticiens : " FontSize="30" Grid.Row="1"></TextBlock>
+            <ListView Name="lvPraticiens" FontSize="15" SelectionChanged="lvPraticiens_SelectionChanged" Grid.Row="1" Margin="10,50,10,10" Background="AliceBlue">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nom" Width="140" DisplayMemberBinding="{Binding PRA_NOM}"></GridViewColumn>
+                        <GridViewColumn Header="Prenom" Width="140" DisplayMemberBinding="{Binding PRA_PRENOM}"></GridViewColumn>
+                        <GridViewColumn Header="Ville" Width="120" DisplayMemberBinding="{Binding PRA_VILLE}"></GridViewColumn>
+                        <GridViewColumn Header="Coefficient notoriété" Width="160" DisplayMemberBinding="{Binding PRA_COEFNOTORIETE}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Liste des rapports d'activité rédigés par un visiteur: " FontSize="20"></TextBlock>
+            <ListView Name="lvRapports" FontSize="15" Grid.Row="0" Margin="10,40,10,10" Background="AliceBlue">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Nom du praticien" Width="130" DisplayMemberBinding="{Binding praticien.PRA_NOM}"></GridViewColumn>
+                        <GridViewColumn Header="Motif" Width="200" DisplayMemberBinding="{Binding RAP_MOTIF}"></GridViewColumn>
+                        <GridViewColumn Header="Bilan" Width="170" DisplayMemberBinding="{Binding RAP_BILAN}"></GridViewColumn>
+                        <GridViewColumn Header="Date" Width="170" DisplayMemberBinding="{Binding RAP_DATE}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="Liste des activités complémentaires réalisés par un visiteur : " FontSize="20" Grid.Row="1"></TextBlock>
+            <ListView Name="lvActivites" FontSize="15" Grid.Row="1" Margin="10,40,10,10" Background="AliceBlue">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Thème activité" Width="150" DisplayMemberBinding="{Binding activite_compl.AC_THEME}"></GridViewColumn>
+                        <GridViewColumn Header="Lieu" Width="100" DisplayMemberBinding="{Binding activite_compl.AC_LIEU}"></GridViewColumn>
+                        <GridViewColumn Header="Date" Width="170" DisplayMemberBinding="{Binding activite_compl.AC_DATE}"></GridViewColumn>
+                        <GridViewColumn Header="Frais" Width="140" DisplayMemberBinding="{Binding REA_MTTFRAIS}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="Liste des invitations d'un praticien : " FontSize="20" Grid.Row="2"></TextBlock>
+            <ListView Name="lvInvitations" FontSize="15" Grid.Row="2" Margin="10,40,10,10" Background="AliceBlue">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Thème activité" Width="180" DisplayMemberBinding="{Binding activite_compl.AC_THEME}" ></GridViewColumn>
+                        <GridViewColumn Header="Lieu" Width="120" DisplayMemberBinding="{Binding activite_compl.AC_LIEU}"></GridViewColumn>
+                        <GridViewColumn Header="Date" Width="180" DisplayMemberBinding="{Binding activite_compl.AC_DATE}"></GridViewColumn>
+                        <GridViewColumn Header="Accepter" Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding PRESENCE}"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>                        
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Name="btnAccepter" Content="Accepter une invitation" Margin="15" FontSize="30" Background="CornflowerBlue" Click="btnAccepter_Click" Grid.Row="3"></Button>
+        </Grid>
     </Grid>
 </Window>
