@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetActiviteVisiteurWPF"
         mc:Ignorable="d"
-        Title="frmVisiteur" Height="650" Width="1000" Loaded="Window_Loaded">
+        Title="frmVisiteur" Height="500" Width="1400" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -15,19 +15,76 @@
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="65"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Liste des rapports d'activité : " FontSize="30"></TextBlock>
-            <ListView Name="lvVisiteurs" FontSize="15" SelectionChanged="lvVisiteurs_SelectionChanged" Grid.Row="0" Margin="10,50,10,10" Background="AliceBlue">
+            <ListView Name="lvRapports" FontSize="15" Grid.Row="0" Margin="10,50,10,10" Background="AliceBlue">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Nom" Width="140" DisplayMemberBinding="{Binding VIS_NOM}"></GridViewColumn>
-                        <GridViewColumn Header="Prenom" Width="140" DisplayMemberBinding="{Binding VIS_PRENOM}"></GridViewColumn>
-                        <GridViewColumn Header="Ville" Width="110" DisplayMemberBinding="{Binding VIS_VILLE}"></GridViewColumn>
-                        <GridViewColumn Header="Date d'embauche" Width="170" DisplayMemberBinding="{Binding VIS_DATEEMBAUCHE}"></GridViewColumn>
+                        <GridViewColumn Header="Nom du praticien" Width="130" DisplayMemberBinding="{Binding praticien.PRA_NOM}"></GridViewColumn>
+                        <GridViewColumn Header="Motif" Width="200" DisplayMemberBinding="{Binding RAP_MOTIF}"></GridViewColumn>
+                        <GridViewColumn Header="Bilan" Width="170" DisplayMemberBinding="{Binding RAP_BILAN}"></GridViewColumn>
+                        <GridViewColumn Header="Date" Width="170" DisplayMemberBinding="{Binding RAP_DATE}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
+            <TextBlock Text="Créer un rapport : " FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <TextBlock Text="Choisir un praticien :" FontSize="15" Margin="30,40,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <ComboBox Name="cboPraticienRapport" Width="200" Height="25" Margin="40" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding PRA_NOM}" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Motif :" FontSize="15" Margin="30,75,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <TextBox Name="txtMotif" Width="200" Height="30" Margin="75" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"></TextBox>
+            <TextBlock Text="Bilan :" FontSize="15" Margin="30,115,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <TextBox Name="txtBilan" Width="200" Height="30" Margin="245,115,245,0" BorderBrush="Black" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"></TextBox>
+            <TextBlock Text="Date :" FontSize="15" Margin="30,155,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <DatePicker Name="dpDateRapport" Width="200" Margin="248,155,249,10" BorderBrush="Black" Grid.Row="1"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="btnCréer" Content="Créer un rapport" FontSize="20" Margin="15" Background="CornflowerBlue" Click="btnCréer_Click"></Button>
+                <Button Name="btnSupprimer" Content="Supprimer un rapport" FontSize="20" Margin="15" Background="CornflowerBlue" Click="btnSupprimer_Click" Grid.Column="1"></Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="205"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Liste des activités complémentaires : " FontSize="30" ></TextBlock>
+            <ListView Name="lvActivites" FontSize="15" Margin="10,50,10,10" Background="AliceBlue">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Thème activité" Width="180" DisplayMemberBinding="{Binding activite_compl.AC_THEME}"></GridViewColumn>
+                        <GridViewColumn Header="Lieu" Width="130" DisplayMemberBinding="{Binding activite_compl.AC_LIEU}"></GridViewColumn>
+                        <GridViewColumn Header="Date" Width="190" DisplayMemberBinding="{Binding activite_compl.AC_DATE}"></GridViewColumn>
+                        <GridViewColumn Header="Frais" Width="140" DisplayMemberBinding="{Binding REA_MTTFRAIS}"></GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <TextBlock Text="Total des frais : " FontWeight="Bold" FontSize="20" Height="30" Width="200" Margin="10,30" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <TextBox Name="txtTotal" Width="100" Height="30" Margin="180,30" BorderBrush="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"></TextBox>
+            <TextBlock Text="Inviter un praticien à une activité : " FontWeight="DemiBold" FontSize="20" Height="30" Width="350" Margin="10,70" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <TextBlock Text="Choisir un praticien :" FontSize="15" Margin="30,110,10,10" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1"></TextBlock>
+            <ComboBox Name="cboPraticienActivite" Width="200" Height="25" Margin="40,110" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding PRA_NOM}" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Name="btninviter" Content="Inviter un praticien" Height="35" FontSize="20" Margin="15" Background="CornflowerBlue" VerticalAlignment="Bottom" Click="btnSupprimer_Click" Grid.Row="1"></Button>
+
         </Grid>
     </Grid>
 </Window>

@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetActiviteVisiteurWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1000" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="DarkTurquoise">
+            <TextBlock Text="Authentification" FontSize="50" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" ></TextBlock>
+        </Grid>
+        <Grid Grid.Row="1">
+            <TextBlock Text="Veuillez entrer vos identifiants : " FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Nom : " FontSize="30" Margin="10"></TextBlock>
+            <TextBox Name="txtNom" Width="200" Height="30" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Black"></TextBox>
+
+            <TextBlock Text="Prenom : " FontSize="30" Margin="10" Grid.Column="1"></TextBlock>
+            <TextBox Name="txtPrenom" Width="180" Height="30" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="Black" Grid.Column="1"></TextBox>
+
+        </Grid>
+        <TextBox Name="txtMessageErreur" Width="500" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White" Grid.Row="3"></TextBox>
+        <Grid Grid.Row="4">
+            <Button Name="btnConnexion" Content="Se connecter" Margin="30" FontSize="25" Background="CornflowerBlue" Grid.Column="2" Click="btnConnexion_Click" ></Button>
+        </Grid>
     </Grid>
 </Window>

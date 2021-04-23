@@ -20,14 +20,14 @@ namespace ProjetActiviteVisiteurWPF
     public partial class frmAdmin : Window
     {
         activite_visiteursEntities gst;
-        public frmAdmin()
+        public frmAdmin(activite_visiteursEntities unGst)
         {
             InitializeComponent();
+            gst = unGst;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            gst = new activite_visiteursEntities();
             lvVisiteurs.ItemsSource = gst.visiteur.ToList();
             lvPraticiens.ItemsSource = gst.praticien.ToList();
         }
