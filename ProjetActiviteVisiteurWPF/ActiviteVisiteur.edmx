@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="activite_visiteursModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="activite_compl">
+          <Key>
+            <PropertyRef Name="AC_NUM" />
+          </Key>
+          <Property Name="AC_NUM" Type="int" Nullable="false" />
+          <Property Name="AC_DATE" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="AC_LIEU" Type="char" MaxLength="25" Nullable="false" />
+          <Property Name="AC_THEME" Type="char" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="inviter">
+          <Key>
+            <PropertyRef Name="AC_NUM" />
+            <PropertyRef Name="PRA_NUM" />
+          </Key>
+          <Property Name="AC_NUM" Type="int" Nullable="false" />
+          <Property Name="PRA_NUM" Type="smallint" Nullable="false" />
+          <Property Name="SPECIALISTEON" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="medicament">
+          <Key>
+            <PropertyRef Name="MED_DEPOTLEGAL" />
+          </Key>
+          <Property Name="MED_DEPOTLEGAL" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="MED_NOMCOMMERCIAL" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="MED_COMPOSITION" Type="char" MaxLength="255" Nullable="false" />
+          <Property Name="MED_EFFET" Type="char" MaxLength="255" Nullable="false" />
+          <Property Name="MED_CONTREINDIC" Type="char" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="offrir">
+          <Key>
+            <PropertyRef Name="RAP_NUM" />
+            <PropertyRef Name="MED_DEPOTLEGAL" />
+          </Key>
+          <Property Name="RAP_NUM" Type="int" Nullable="false" />
+          <Property Name="MED_DEPOTLEGAL" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="OFF_QTE" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="praticien">
+          <Key>
+            <PropertyRef Name="PRA_NUM" />
+          </Key>
+          <Property Name="PRA_NUM" Type="smallint" Nullable="false" />
+          <Property Name="PRA_NOM" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="PRA_PRENOM" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="PRA_ADRESSE" Type="char" MaxLength="100" />
+          <Property Name="PRA_CP" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="PRA_VILLE" Type="char" MaxLength="25" Nullable="false" />
+          <Property Name="PRA_COEFNOTORIETE" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="rapport_visite">
+          <Key>
+            <PropertyRef Name="RAP_NUM" />
+          </Key>
+          <Property Name="RAP_NUM" Type="int" Nullable="false" />
+          <Property Name="RAP_DATE" Type="date" Nullable="false" />
+          <Property Name="RAP_MOTIF" Type="char" MaxLength="255" Nullable="false" />
+          <Property Name="RAP_BILAN" Type="char" MaxLength="255" Nullable="false" />
+          <Property Name="PRA_NUM" Type="smallint" Nullable="false" />
+          <Property Name="VIS_MATRICULE" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="realiser">
+          <Key>
+            <PropertyRef Name="AC_NUM" />
+            <PropertyRef Name="VIS_MATRICULE" />
+          </Key>
+          <Property Name="AC_NUM" Type="int" Nullable="false" />
+          <Property Name="VIS_MATRICULE" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="REA_MTTFRAIS" Type="double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="visiteur">
+          <Key>
+            <PropertyRef Name="VIS_MATRICULE" />
+          </Key>
+          <Property Name="VIS_MATRICULE" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="VIS_NOM" Type="char" MaxLength="30" Nullable="false" />
+          <Property Name="VIS_PRENOM" Type="char" MaxLength="50" Nullable="false" />
+          <Property Name="VIS_ADRESSE" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="VIS_CP" Type="char" MaxLength="5" Nullable="false" />
+          <Property Name="VIS_VILLE" Type="char" MaxLength="30" Nullable="false" />
+          <Property Name="VIS_DATEEMBAUCHE" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <Association Name="inviter_ibfk_1">
+          <End Role="praticien" Type="Self.praticien" Multiplicity="1" />
+          <End Role="inviter" Type="Self.inviter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="praticien">
+              <PropertyRef Name="PRA_NUM" />
+            </Principal>
+            <Dependent Role="inviter">
+              <PropertyRef Name="PRA_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inviter_ibfk_2">
+          <End Role="activite_compl" Type="Self.activite_compl" Multiplicity="1" />
+          <End Role="inviter" Type="Self.inviter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activite_compl">
+              <PropertyRef Name="AC_NUM" />
+            </Principal>
+            <Dependent Role="inviter">
+              <PropertyRef Name="AC_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_ibfk_1">
+          <End Role="medicament" Type="Self.medicament" Multiplicity="1" />
+          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicament">
+              <PropertyRef Name="MED_DEPOTLEGAL" />
+            </Principal>
+            <Dependent Role="offrir">
+              <PropertyRef Name="MED_DEPOTLEGAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_ibfk_2">
+          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="1" />
+          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rapport_visite">
+              <PropertyRef Name="RAP_NUM" />
+            </Principal>
+            <Dependent Role="offrir">
+              <PropertyRef Name="RAP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_visite_ibfk_1">
+          <End Role="praticien" Type="Self.praticien" Multiplicity="1" />
+          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="praticien">
+              <PropertyRef Name="PRA_NUM" />
+            </Principal>
+            <Dependent Role="rapport_visite">
+              <PropertyRef Name="PRA_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_visite_ibfk_2">
+          <End Role="visiteur" Type="Self.visiteur" Multiplicity="1" />
+          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visiteur">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Principal>
+            <Dependent Role="rapport_visite">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="realiser_ibfk_1">
+          <End Role="visiteur" Type="Self.visiteur" Multiplicity="1" />
+          <End Role="realiser" Type="Self.realiser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visiteur">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Principal>
+            <Dependent Role="realiser">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="realiser_ibfk_2">
+          <End Role="activite_compl" Type="Self.activite_compl" Multiplicity="1" />
+          <End Role="realiser" Type="Self.realiser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activite_compl">
+              <PropertyRef Name="AC_NUM" />
+            </Principal>
+            <Dependent Role="realiser">
+              <PropertyRef Name="AC_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="activite_visiteursModelStoreContainer">
+          <EntitySet Name="activite_compl" EntityType="Self.activite_compl" Schema="activite_visiteurs" store:Type="Tables" />
+          <EntitySet Name="inviter" EntityType="Self.inviter" Schema="activite_visiteurs" store:Type="Tables" />
+          <EntitySet Name="medicament" EntityType="Self.medicament" Schema="activite_visiteurs" store:Type="Tables" />
+          <EntitySet Name="offrir" EntityType="Self.offrir" Schema="activite_visiteurs" store:Type="Tables" />
+          <EntitySet Name="praticien" EntityType="Self.praticien" Schema="activite_visiteurs" store:Type="Tables" />
+          <EntitySet Name="rapport_visite" EntityType="Self.rapport_visite" Schema="activite_visiteurs" store:Type="Tables" />
+          <EntitySet Name="realiser" EntityType="Self.realiser" Schema="activite_visiteurs" store:Type="Tables" />
+          <EntitySet Name="visiteur" EntityType="Self.visiteur" Schema="activite_visiteurs" store:Type="Tables" />
+          <AssociationSet Name="inviter_ibfk_1" Association="Self.inviter_ibfk_1">
+            <End Role="praticien" EntitySet="praticien" />
+            <End Role="inviter" EntitySet="inviter" />
+          </AssociationSet>
+          <AssociationSet Name="inviter_ibfk_2" Association="Self.inviter_ibfk_2">
+            <End Role="activite_compl" EntitySet="activite_compl" />
+            <End Role="inviter" EntitySet="inviter" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_ibfk_1" Association="Self.offrir_ibfk_1">
+            <End Role="medicament" EntitySet="medicament" />
+            <End Role="offrir" EntitySet="offrir" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_ibfk_2" Association="Self.offrir_ibfk_2">
+            <End Role="rapport_visite" EntitySet="rapport_visite" />
+            <End Role="offrir" EntitySet="offrir" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_visite_ibfk_1" Association="Self.rapport_visite_ibfk_1">
+            <End Role="praticien" EntitySet="praticien" />
+            <End Role="rapport_visite" EntitySet="rapport_visite" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_visite_ibfk_2" Association="Self.rapport_visite_ibfk_2">
+            <End Role="visiteur" EntitySet="visiteur" />
+            <End Role="rapport_visite" EntitySet="rapport_visite" />
+          </AssociationSet>
+          <AssociationSet Name="realiser_ibfk_1" Association="Self.realiser_ibfk_1">
+            <End Role="visiteur" EntitySet="visiteur" />
+            <End Role="realiser" EntitySet="realiser" />
+          </AssociationSet>
+          <AssociationSet Name="realiser_ibfk_2" Association="Self.realiser_ibfk_2">
+            <End Role="activite_compl" EntitySet="activite_compl" />
+            <End Role="realiser" EntitySet="realiser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="activite_visiteursModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="activite_compl">
+          <Key>
+            <PropertyRef Name="AC_NUM" />
+          </Key>
+          <Property Name="AC_NUM" Type="Int32" Nullable="false" />
+          <Property Name="AC_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="AC_LIEU" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AC_THEME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="inviter" Relationship="Self.inviter_ibfk_2" FromRole="activite_compl" ToRole="inviter" />
+          <NavigationProperty Name="realiser" Relationship="Self.realiser_ibfk_2" FromRole="activite_compl" ToRole="realiser" />
+        </EntityType>
+        <EntityType Name="inviter">
+          <Key>
+            <PropertyRef Name="AC_NUM" />
+            <PropertyRef Name="PRA_NUM" />
+          </Key>
+          <Property Name="AC_NUM" Type="Int32" Nullable="false" />
+          <Property Name="PRA_NUM" Type="Int16" Nullable="false" />
+          <Property Name="SPECIALISTEON" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="activite_compl" Relationship="Self.inviter_ibfk_2" FromRole="inviter" ToRole="activite_compl" />
+          <NavigationProperty Name="praticien" Relationship="Self.inviter_ibfk_1" FromRole="inviter" ToRole="praticien" />
+        </EntityType>
+        <EntityType Name="medicament">
+          <Key>
+            <PropertyRef Name="MED_DEPOTLEGAL" />
+          </Key>
+          <Property Name="MED_DEPOTLEGAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MED_NOMCOMMERCIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MED_COMPOSITION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MED_EFFET" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MED_CONTREINDIC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="offrir" Relationship="Self.offrir_ibfk_1" FromRole="medicament" ToRole="offrir" />
+        </EntityType>
+        <EntityType Name="offrir">
+          <Key>
+            <PropertyRef Name="RAP_NUM" />
+            <PropertyRef Name="MED_DEPOTLEGAL" />
+          </Key>
+          <Property Name="RAP_NUM" Type="Int32" Nullable="false" />
+          <Property Name="MED_DEPOTLEGAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OFF_QTE" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="medicament" Relationship="Self.offrir_ibfk_1" FromRole="offrir" ToRole="medicament" />
+          <NavigationProperty Name="rapport_visite" Relationship="Self.offrir_ibfk_2" FromRole="offrir" ToRole="rapport_visite" />
+        </EntityType>
+        <EntityType Name="praticien">
+          <Key>
+            <PropertyRef Name="PRA_NUM" />
+          </Key>
+          <Property Name="PRA_NUM" Type="Int16" Nullable="false" />
+          <Property Name="PRA_NOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRA_PRENOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRA_ADRESSE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRA_CP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRA_VILLE" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRA_COEFNOTORIETE" Type="Double" Nullable="false" />
+          <NavigationProperty Name="inviter" Relationship="Self.inviter_ibfk_1" FromRole="praticien" ToRole="inviter" />
+          <NavigationProperty Name="rapport_visite" Relationship="Self.rapport_visite_ibfk_1" FromRole="praticien" ToRole="rapport_visite" />
+        </EntityType>
+        <EntityType Name="rapport_visite">
+          <Key>
+            <PropertyRef Name="RAP_NUM" />
+          </Key>
+          <Property Name="RAP_NUM" Type="Int32" Nullable="false" />
+          <Property Name="RAP_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="RAP_MOTIF" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RAP_BILAN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PRA_NUM" Type="Int16" Nullable="false" />
+          <Property Name="VIS_MATRICULE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="offrir" Relationship="Self.offrir_ibfk_2" FromRole="rapport_visite" ToRole="offrir" />
+          <NavigationProperty Name="praticien" Relationship="Self.rapport_visite_ibfk_1" FromRole="rapport_visite" ToRole="praticien" />
+          <NavigationProperty Name="visiteur" Relationship="Self.rapport_visite_ibfk_2" FromRole="rapport_visite" ToRole="visiteur" />
+        </EntityType>
+        <EntityType Name="realiser">
+          <Key>
+            <PropertyRef Name="AC_NUM" />
+            <PropertyRef Name="VIS_MATRICULE" />
+          </Key>
+          <Property Name="AC_NUM" Type="Int32" Nullable="false" />
+          <Property Name="VIS_MATRICULE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="REA_MTTFRAIS" Type="Double" Nullable="false" />
+          <NavigationProperty Name="activite_compl" Relationship="Self.realiser_ibfk_2" FromRole="realiser" ToRole="activite_compl" />
+          <NavigationProperty Name="visiteur" Relationship="Self.realiser_ibfk_1" FromRole="realiser" ToRole="visiteur" />
+        </EntityType>
+        <EntityType Name="visiteur">
+          <Key>
+            <PropertyRef Name="VIS_MATRICULE" />
+          </Key>
+          <Property Name="VIS_MATRICULE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VIS_NOM" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VIS_PRENOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VIS_ADRESSE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VIS_CP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VIS_VILLE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VIS_DATEEMBAUCHE" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="rapport_visite" Relationship="Self.rapport_visite_ibfk_2" FromRole="visiteur" ToRole="rapport_visite" />
+          <NavigationProperty Name="realiser" Relationship="Self.realiser_ibfk_1" FromRole="visiteur" ToRole="realiser" />
+        </EntityType>
+        <Association Name="inviter_ibfk_2">
+          <End Role="activite_compl" Type="Self.activite_compl" Multiplicity="1" />
+          <End Role="inviter" Type="Self.inviter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activite_compl">
+              <PropertyRef Name="AC_NUM" />
+            </Principal>
+            <Dependent Role="inviter">
+              <PropertyRef Name="AC_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="realiser_ibfk_2">
+          <End Role="activite_compl" Type="Self.activite_compl" Multiplicity="1" />
+          <End Role="realiser" Type="Self.realiser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="activite_compl">
+              <PropertyRef Name="AC_NUM" />
+            </Principal>
+            <Dependent Role="realiser">
+              <PropertyRef Name="AC_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inviter_ibfk_1">
+          <End Role="praticien" Type="Self.praticien" Multiplicity="1" />
+          <End Role="inviter" Type="Self.inviter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="praticien">
+              <PropertyRef Name="PRA_NUM" />
+            </Principal>
+            <Dependent Role="inviter">
+              <PropertyRef Name="PRA_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_ibfk_1">
+          <End Role="medicament" Type="Self.medicament" Multiplicity="1" />
+          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicament">
+              <PropertyRef Name="MED_DEPOTLEGAL" />
+            </Principal>
+            <Dependent Role="offrir">
+              <PropertyRef Name="MED_DEPOTLEGAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="offrir_ibfk_2">
+          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="1" />
+          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rapport_visite">
+              <PropertyRef Name="RAP_NUM" />
+            </Principal>
+            <Dependent Role="offrir">
+              <PropertyRef Name="RAP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_visite_ibfk_1">
+          <End Role="praticien" Type="Self.praticien" Multiplicity="1" />
+          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="praticien">
+              <PropertyRef Name="PRA_NUM" />
+            </Principal>
+            <Dependent Role="rapport_visite">
+              <PropertyRef Name="PRA_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rapport_visite_ibfk_2">
+          <End Role="visiteur" Type="Self.visiteur" Multiplicity="1" />
+          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visiteur">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Principal>
+            <Dependent Role="rapport_visite">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="realiser_ibfk_1">
+          <End Role="visiteur" Type="Self.visiteur" Multiplicity="1" />
+          <End Role="realiser" Type="Self.realiser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="visiteur">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Principal>
+            <Dependent Role="realiser">
+              <PropertyRef Name="VIS_MATRICULE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="activite_visiteursEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="activite_compl" EntityType="Self.activite_compl" />
+          <EntitySet Name="inviter" EntityType="Self.inviter" />
+          <EntitySet Name="medicament" EntityType="Self.medicament" />
+          <EntitySet Name="offrir" EntityType="Self.offrir" />
+          <EntitySet Name="praticien" EntityType="Self.praticien" />
+          <EntitySet Name="rapport_visite" EntityType="Self.rapport_visite" />
+          <EntitySet Name="realiser" EntityType="Self.realiser" />
+          <EntitySet Name="visiteur" EntityType="Self.visiteur" />
+          <AssociationSet Name="inviter_ibfk_2" Association="Self.inviter_ibfk_2">
+            <End Role="activite_compl" EntitySet="activite_compl" />
+            <End Role="inviter" EntitySet="inviter" />
+          </AssociationSet>
+          <AssociationSet Name="realiser_ibfk_2" Association="Self.realiser_ibfk_2">
+            <End Role="activite_compl" EntitySet="activite_compl" />
+            <End Role="realiser" EntitySet="realiser" />
+          </AssociationSet>
+          <AssociationSet Name="inviter_ibfk_1" Association="Self.inviter_ibfk_1">
+            <End Role="praticien" EntitySet="praticien" />
+            <End Role="inviter" EntitySet="inviter" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_ibfk_1" Association="Self.offrir_ibfk_1">
+            <End Role="medicament" EntitySet="medicament" />
+            <End Role="offrir" EntitySet="offrir" />
+          </AssociationSet>
+          <AssociationSet Name="offrir_ibfk_2" Association="Self.offrir_ibfk_2">
+            <End Role="rapport_visite" EntitySet="rapport_visite" />
+            <End Role="offrir" EntitySet="offrir" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_visite_ibfk_1" Association="Self.rapport_visite_ibfk_1">
+            <End Role="praticien" EntitySet="praticien" />
+            <End Role="rapport_visite" EntitySet="rapport_visite" />
+          </AssociationSet>
+          <AssociationSet Name="rapport_visite_ibfk_2" Association="Self.rapport_visite_ibfk_2">
+            <End Role="visiteur" EntitySet="visiteur" />
+            <End Role="rapport_visite" EntitySet="rapport_visite" />
+          </AssociationSet>
+          <AssociationSet Name="realiser_ibfk_1" Association="Self.realiser_ibfk_1">
+            <End Role="visiteur" EntitySet="visiteur" />
+            <End Role="realiser" EntitySet="realiser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="activite_visiteursModelStoreContainer" CdmEntityContainer="activite_visiteursEntities">
+          <EntitySetMapping Name="activite_compl">
+            <EntityTypeMapping TypeName="activite_visiteursModel.activite_compl">
+              <MappingFragment StoreEntitySet="activite_compl">
+                <ScalarProperty Name="AC_NUM" ColumnName="AC_NUM" />
+                <ScalarProperty Name="AC_DATE" ColumnName="AC_DATE" />
+                <ScalarProperty Name="AC_LIEU" ColumnName="AC_LIEU" />
+                <ScalarProperty Name="AC_THEME" ColumnName="AC_THEME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inviter">
+            <EntityTypeMapping TypeName="activite_visiteursModel.inviter">
+              <MappingFragment StoreEntitySet="inviter">
+                <ScalarProperty Name="AC_NUM" ColumnName="AC_NUM" />
+                <ScalarProperty Name="PRA_NUM" ColumnName="PRA_NUM" />
+                <ScalarProperty Name="SPECIALISTEON" ColumnName="SPECIALISTEON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medicament">
+            <EntityTypeMapping TypeName="activite_visiteursModel.medicament">
+              <MappingFragment StoreEntitySet="medicament">
+                <ScalarProperty Name="MED_DEPOTLEGAL" ColumnName="MED_DEPOTLEGAL" />
+                <ScalarProperty Name="MED_NOMCOMMERCIAL" ColumnName="MED_NOMCOMMERCIAL" />
+                <ScalarProperty Name="MED_COMPOSITION" ColumnName="MED_COMPOSITION" />
+                <ScalarProperty Name="MED_EFFET" ColumnName="MED_EFFET" />
+                <ScalarProperty Name="MED_CONTREINDIC" ColumnName="MED_CONTREINDIC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="offrir">
+            <EntityTypeMapping TypeName="activite_visiteursModel.offrir">
+              <MappingFragment StoreEntitySet="offrir">
+                <ScalarProperty Name="RAP_NUM" ColumnName="RAP_NUM" />
+                <ScalarProperty Name="MED_DEPOTLEGAL" ColumnName="MED_DEPOTLEGAL" />
+                <ScalarProperty Name="OFF_QTE" ColumnName="OFF_QTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="praticien">
+            <EntityTypeMapping TypeName="activite_visiteursModel.praticien">
+              <MappingFragment StoreEntitySet="praticien">
+                <ScalarProperty Name="PRA_NUM" ColumnName="PRA_NUM" />
+                <ScalarProperty Name="PRA_NOM" ColumnName="PRA_NOM" />
+                <ScalarProperty Name="PRA_PRENOM" ColumnName="PRA_PRENOM" />
+                <ScalarProperty Name="PRA_ADRESSE" ColumnName="PRA_ADRESSE" />
+                <ScalarProperty Name="PRA_CP" ColumnName="PRA_CP" />
+                <ScalarProperty Name="PRA_VILLE" ColumnName="PRA_VILLE" />
+                <ScalarProperty Name="PRA_COEFNOTORIETE" ColumnName="PRA_COEFNOTORIETE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rapport_visite">
+            <EntityTypeMapping TypeName="activite_visiteursModel.rapport_visite">
+              <MappingFragment StoreEntitySet="rapport_visite">
+                <ScalarProperty Name="RAP_NUM" ColumnName="RAP_NUM" />
+                <ScalarProperty Name="RAP_DATE" ColumnName="RAP_DATE" />
+                <ScalarProperty Name="RAP_MOTIF" ColumnName="RAP_MOTIF" />
+                <ScalarProperty Name="RAP_BILAN" ColumnName="RAP_BILAN" />
+                <ScalarProperty Name="PRA_NUM" ColumnName="PRA_NUM" />
+                <ScalarProperty Name="VIS_MATRICULE" ColumnName="VIS_MATRICULE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="realiser">
+            <EntityTypeMapping TypeName="activite_visiteursModel.realiser">
+              <MappingFragment StoreEntitySet="realiser">
+                <ScalarProperty Name="AC_NUM" ColumnName="AC_NUM" />
+                <ScalarProperty Name="VIS_MATRICULE" ColumnName="VIS_MATRICULE" />
+                <ScalarProperty Name="REA_MTTFRAIS" ColumnName="REA_MTTFRAIS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="visiteur">
+            <EntityTypeMapping TypeName="activite_visiteursModel.visiteur">
+              <MappingFragment StoreEntitySet="visiteur">
+                <ScalarProperty Name="VIS_MATRICULE" ColumnName="VIS_MATRICULE" />
+                <ScalarProperty Name="VIS_NOM" ColumnName="VIS_NOM" />
+                <ScalarProperty Name="VIS_PRENOM" ColumnName="VIS_PRENOM" />
+                <ScalarProperty Name="VIS_ADRESSE" ColumnName="VIS_ADRESSE" />
+                <ScalarProperty Name="VIS_CP" ColumnName="VIS_CP" />
+                <ScalarProperty Name="VIS_VILLE" ColumnName="VIS_VILLE" />
+                <ScalarProperty Name="VIS_DATEEMBAUCHE" ColumnName="VIS_DATEEMBAUCHE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

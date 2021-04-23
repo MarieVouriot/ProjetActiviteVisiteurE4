@@ -85,6 +85,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
@@ -111,13 +112,59 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ActiviteVisiteur.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="activite_compl.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="inviter.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="medicament.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="offrir.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="praticien.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="rapport_visite.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="realiser.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Compile Include="visiteur.cs">
+      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
+    </Compile>
+    <Page Include="frmAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ActiviteVisiteur.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActiviteVisiteur.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActiviteVisiteur.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ActiviteVisiteur.edmx</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="frmAdmin.xaml.cs">
+      <DependentUpon>frmAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -142,6 +189,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EntityDeploy Include="ActiviteVisiteur.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ActiviteVisiteur.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ActiviteVisiteur.edmx.diagram">
+      <DependentUpon>ActiviteVisiteur.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -150,6 +204,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ActiviteVisiteur.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ActiviteVisiteur.Context.cs</LastGenOutput>
+      <DependentUpon>ActiviteVisiteur.edmx</DependentUpon>
+    </Content>
+    <Content Include="ActiviteVisiteur.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ActiviteVisiteur.edmx</DependentUpon>
+      <LastGenOutput>ActiviteVisiteur.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
