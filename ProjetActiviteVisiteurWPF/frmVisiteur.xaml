@@ -64,9 +64,9 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Thème activité" Width="180" DisplayMemberBinding="{Binding activite_compl.AC_THEME}"></GridViewColumn>
-                        <GridViewColumn Header="Lieu" Width="130" DisplayMemberBinding="{Binding activite_compl.AC_LIEU}"></GridViewColumn>
+                        <GridViewColumn Header="Lieu" Width="160" DisplayMemberBinding="{Binding activite_compl.AC_LIEU}"></GridViewColumn>
                         <GridViewColumn Header="Date" Width="190" DisplayMemberBinding="{Binding activite_compl.AC_DATE}"></GridViewColumn>
-                        <GridViewColumn Header="Frais" Width="140" DisplayMemberBinding="{Binding REA_MTTFRAIS}"></GridViewColumn>
+                        <GridViewColumn Header="Frais" Width="80" DisplayMemberBinding="{Binding REA_MTTFRAIS}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -83,8 +83,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Name="btninviter" Content="Inviter un praticien" Height="35" FontSize="20" Margin="15" Background="CornflowerBlue" VerticalAlignment="Bottom" Click="btnSupprimer_Click" Grid.Row="1"></Button>
-
+            <Button Name="btninviter" Content="Inviter un praticien" Height="35" FontSize="20" Margin="15" Background="CornflowerBlue" VerticalAlignment="Bottom" Click="btninviter_Click" Grid.Row="1"></Button>
         </Grid>
     </Grid>
 </Window>

@@ -7,8 +7,6 @@
       <Diagram DiagramId="d5eebf18bafe4efc85cb94e562d13288" Name="Diagram1">
         <EntityTypeShape EntityType="activite_visiteursModel.activite_compl" Width="1.5" PointX="1" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="activite_visiteursModel.inviter" Width="1.5" PointX="1" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="activite_visiteursModel.medicament" Width="1.5" PointX="8.625" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="activite_visiteursModel.offrir" Width="1.5" PointX="8.625" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="activite_visiteursModel.praticien" Width="1.5" PointX="3.375" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="activite_visiteursModel.rapport_visite" Width="1.5" PointX="5.5" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="activite_visiteursModel.realiser" Width="1.5" PointX="3.25" PointY="5.125" IsExpanded="true" />
@@ -16,8 +14,6 @@
         <AssociationConnector Association="activite_visiteursModel.inviter_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="activite_visiteursModel.realiser_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="activite_visiteursModel.inviter_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="activite_visiteursModel.offrir_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="activite_visiteursModel.offrir_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="activite_visiteursModel.rapport_visite_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="activite_visiteursModel.rapport_visite_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="activite_visiteursModel.realiser_ibfk_1" ManuallyRouted="false" />

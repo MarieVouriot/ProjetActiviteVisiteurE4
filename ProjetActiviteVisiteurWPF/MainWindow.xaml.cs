@@ -50,27 +50,28 @@ namespace ProjetActiviteVisiteurWPF
                     
                     if(unVisiteur == null && unPraticien == null) // véréfication des identifiants
                     {
-                        txtMessageErreur.Text = "Vos identifiants sont incorrects";                        
-                    }
-                    else
-                    {
-                        if (txtNom.Text == "admin" && txtPrenom.Text == "1234") // fenêtre admin
+                        if (txtNom.Text == "admin" && txtPrenom.Text == "admin") // fenêtre admin
                         {
                             frmAdmin frm = new frmAdmin(gst);
                             frm.Show();
                         }
                         else
                         {
-                            if(unVisiteur != null ){ //fenêtre visiteur
-                                frmVisiteur frm = new frmVisiteur(gst, unVisiteur);
-                                frm.Show();
-                            }
-                            else //fenêtre praticien
-                            {
-                                frmPraticien frm = new frmPraticien(gst);
-                                frm.Show();
-                            }
+                            txtMessageErreur.Text = "Vos identifiants sont incorrects";
+                        }                     
+                    }
+                    else
+                    {
+                        if(unVisiteur != null ){ //fenêtre visiteur
+                            frmVisiteur frm = new frmVisiteur(gst, unVisiteur);
+                            frm.Show();
                         }
+                        else //fenêtre praticien
+                        {
+                            frmPraticien frm = new frmPraticien(gst);
+                            frm.Show();
+                        }
+                        
                     
                     }
                 }

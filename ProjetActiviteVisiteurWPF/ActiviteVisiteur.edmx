@@ -24,25 +24,6 @@
           <Property Name="SPECIALISTEON" Type="bool" Nullable="false" />
           <Property Name="PRESENCE" Type="bool" Nullable="false" />
         </EntityType>
-        <EntityType Name="medicament">
-          <Key>
-            <PropertyRef Name="MED_DEPOTLEGAL" />
-          </Key>
-          <Property Name="MED_DEPOTLEGAL" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="MED_NOMCOMMERCIAL" Type="char" MaxLength="50" Nullable="false" />
-          <Property Name="MED_COMPOSITION" Type="char" MaxLength="255" Nullable="false" />
-          <Property Name="MED_EFFET" Type="char" MaxLength="255" Nullable="false" />
-          <Property Name="MED_CONTREINDIC" Type="char" MaxLength="255" Nullable="false" />
-        </EntityType>
-        <EntityType Name="offrir">
-          <Key>
-            <PropertyRef Name="RAP_NUM" />
-            <PropertyRef Name="MED_DEPOTLEGAL" />
-          </Key>
-          <Property Name="RAP_NUM" Type="int" Nullable="false" />
-          <Property Name="MED_DEPOTLEGAL" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="OFF_QTE" Type="smallint" Nullable="false" />
-        </EntityType>
         <EntityType Name="praticien">
           <Key>
             <PropertyRef Name="PRA_NUM" />
@@ -111,30 +92,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="offrir_ibfk_1">
-          <End Role="medicament" Type="Self.medicament" Multiplicity="1" />
-          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="medicament">
-              <PropertyRef Name="MED_DEPOTLEGAL" />
-            </Principal>
-            <Dependent Role="offrir">
-              <PropertyRef Name="MED_DEPOTLEGAL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="offrir_ibfk_2">
-          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="1" />
-          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rapport_visite">
-              <PropertyRef Name="RAP_NUM" />
-            </Principal>
-            <Dependent Role="offrir">
-              <PropertyRef Name="RAP_NUM" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="rapport_visite_ibfk_1">
           <End Role="praticien" Type="Self.praticien" Multiplicity="1" />
           <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="*" />
@@ -186,8 +143,6 @@
         <EntityContainer Name="activite_visiteursModelStoreContainer">
           <EntitySet Name="activite_compl" EntityType="Self.activite_compl" Schema="activite_visiteurs" store:Type="Tables" />
           <EntitySet Name="inviter" EntityType="Self.inviter" Schema="activite_visiteurs" store:Type="Tables" />
-          <EntitySet Name="medicament" EntityType="Self.medicament" Schema="activite_visiteurs" store:Type="Tables" />
-          <EntitySet Name="offrir" EntityType="Self.offrir" Schema="activite_visiteurs" store:Type="Tables" />
           <EntitySet Name="praticien" EntityType="Self.praticien" Schema="activite_visiteurs" store:Type="Tables" />
           <EntitySet Name="rapport_visite" EntityType="Self.rapport_visite" Schema="activite_visiteurs" store:Type="Tables" />
           <EntitySet Name="realiser" EntityType="Self.realiser" Schema="activite_visiteurs" store:Type="Tables" />
@@ -199,14 +154,6 @@
           <AssociationSet Name="inviter_ibfk_2" Association="Self.inviter_ibfk_2">
             <End Role="activite_compl" EntitySet="activite_compl" />
             <End Role="inviter" EntitySet="inviter" />
-          </AssociationSet>
-          <AssociationSet Name="offrir_ibfk_1" Association="Self.offrir_ibfk_1">
-            <End Role="medicament" EntitySet="medicament" />
-            <End Role="offrir" EntitySet="offrir" />
-          </AssociationSet>
-          <AssociationSet Name="offrir_ibfk_2" Association="Self.offrir_ibfk_2">
-            <End Role="rapport_visite" EntitySet="rapport_visite" />
-            <End Role="offrir" EntitySet="offrir" />
           </AssociationSet>
           <AssociationSet Name="rapport_visite_ibfk_1" Association="Self.rapport_visite_ibfk_1">
             <End Role="praticien" EntitySet="praticien" />
@@ -252,28 +199,6 @@
           <NavigationProperty Name="praticien" Relationship="Self.inviter_ibfk_1" FromRole="inviter" ToRole="praticien" />
           <Property Name="PRESENCE" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="medicament">
-          <Key>
-            <PropertyRef Name="MED_DEPOTLEGAL" />
-          </Key>
-          <Property Name="MED_DEPOTLEGAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MED_NOMCOMMERCIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MED_COMPOSITION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MED_EFFET" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MED_CONTREINDIC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="offrir" Relationship="Self.offrir_ibfk_1" FromRole="medicament" ToRole="offrir" />
-        </EntityType>
-        <EntityType Name="offrir">
-          <Key>
-            <PropertyRef Name="RAP_NUM" />
-            <PropertyRef Name="MED_DEPOTLEGAL" />
-          </Key>
-          <Property Name="RAP_NUM" Type="Int32" Nullable="false" />
-          <Property Name="MED_DEPOTLEGAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OFF_QTE" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="medicament" Relationship="Self.offrir_ibfk_1" FromRole="offrir" ToRole="medicament" />
-          <NavigationProperty Name="rapport_visite" Relationship="Self.offrir_ibfk_2" FromRole="offrir" ToRole="rapport_visite" />
-        </EntityType>
         <EntityType Name="praticien">
           <Key>
             <PropertyRef Name="PRA_NUM" />
@@ -298,7 +223,6 @@
           <Property Name="RAP_BILAN" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PRA_NUM" Type="Int16" Nullable="false" />
           <Property Name="VIS_MATRICULE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="offrir" Relationship="Self.offrir_ibfk_2" FromRole="rapport_visite" ToRole="offrir" />
           <NavigationProperty Name="praticien" Relationship="Self.rapport_visite_ibfk_1" FromRole="rapport_visite" ToRole="praticien" />
           <NavigationProperty Name="visiteur" Relationship="Self.rapport_visite_ibfk_2" FromRole="rapport_visite" ToRole="visiteur" />
         </EntityType>
@@ -363,30 +287,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="offrir_ibfk_1">
-          <End Role="medicament" Type="Self.medicament" Multiplicity="1" />
-          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="medicament">
-              <PropertyRef Name="MED_DEPOTLEGAL" />
-            </Principal>
-            <Dependent Role="offrir">
-              <PropertyRef Name="MED_DEPOTLEGAL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="offrir_ibfk_2">
-          <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="1" />
-          <End Role="offrir" Type="Self.offrir" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rapport_visite">
-              <PropertyRef Name="RAP_NUM" />
-            </Principal>
-            <Dependent Role="offrir">
-              <PropertyRef Name="RAP_NUM" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="rapport_visite_ibfk_1">
           <End Role="praticien" Type="Self.praticien" Multiplicity="1" />
           <End Role="rapport_visite" Type="Self.rapport_visite" Multiplicity="*" />
@@ -426,8 +326,6 @@
         <EntityContainer Name="activite_visiteursEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="activite_compl" EntityType="Self.activite_compl" />
           <EntitySet Name="inviter" EntityType="Self.inviter" />
-          <EntitySet Name="medicament" EntityType="Self.medicament" />
-          <EntitySet Name="offrir" EntityType="Self.offrir" />
           <EntitySet Name="praticien" EntityType="Self.praticien" />
           <EntitySet Name="rapport_visite" EntityType="Self.rapport_visite" />
           <EntitySet Name="realiser" EntityType="Self.realiser" />
@@ -443,14 +341,6 @@
           <AssociationSet Name="inviter_ibfk_1" Association="Self.inviter_ibfk_1">
             <End Role="praticien" EntitySet="praticien" />
             <End Role="inviter" EntitySet="inviter" />
-          </AssociationSet>
-          <AssociationSet Name="offrir_ibfk_1" Association="Self.offrir_ibfk_1">
-            <End Role="medicament" EntitySet="medicament" />
-            <End Role="offrir" EntitySet="offrir" />
-          </AssociationSet>
-          <AssociationSet Name="offrir_ibfk_2" Association="Self.offrir_ibfk_2">
-            <End Role="rapport_visite" EntitySet="rapport_visite" />
-            <End Role="offrir" EntitySet="offrir" />
           </AssociationSet>
           <AssociationSet Name="rapport_visite_ibfk_1" Association="Self.rapport_visite_ibfk_1">
             <End Role="praticien" EntitySet="praticien" />
@@ -488,26 +378,6 @@
                 <ScalarProperty Name="AC_NUM" ColumnName="AC_NUM" />
                 <ScalarProperty Name="PRA_NUM" ColumnName="PRA_NUM" />
                 <ScalarProperty Name="SPECIALISTEON" ColumnName="SPECIALISTEON" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="medicament">
-            <EntityTypeMapping TypeName="activite_visiteursModel.medicament">
-              <MappingFragment StoreEntitySet="medicament">
-                <ScalarProperty Name="MED_DEPOTLEGAL" ColumnName="MED_DEPOTLEGAL" />
-                <ScalarProperty Name="MED_NOMCOMMERCIAL" ColumnName="MED_NOMCOMMERCIAL" />
-                <ScalarProperty Name="MED_COMPOSITION" ColumnName="MED_COMPOSITION" />
-                <ScalarProperty Name="MED_EFFET" ColumnName="MED_EFFET" />
-                <ScalarProperty Name="MED_CONTREINDIC" ColumnName="MED_CONTREINDIC" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="offrir">
-            <EntityTypeMapping TypeName="activite_visiteursModel.offrir">
-              <MappingFragment StoreEntitySet="offrir">
-                <ScalarProperty Name="RAP_NUM" ColumnName="RAP_NUM" />
-                <ScalarProperty Name="MED_DEPOTLEGAL" ColumnName="MED_DEPOTLEGAL" />
-                <ScalarProperty Name="OFF_QTE" ColumnName="OFF_QTE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

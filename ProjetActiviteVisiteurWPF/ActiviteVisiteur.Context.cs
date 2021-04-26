@@ -27,8 +27,6 @@ namespace ProjetActiviteVisiteurWPF
     
         public virtual DbSet<activite_compl> activite_compl { get; set; }
         public virtual DbSet<inviter> inviter { get; set; }
-        public virtual DbSet<medicament> medicament { get; set; }
-        public virtual DbSet<offrir> offrir { get; set; }
         public virtual DbSet<praticien> praticien { get; set; }
         public virtual DbSet<rapport_visite> rapport_visite { get; set; }
         public virtual DbSet<realiser> realiser { get; set; }

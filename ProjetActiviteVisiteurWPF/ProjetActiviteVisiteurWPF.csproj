@@ -129,12 +129,6 @@
     <Compile Include="inviter.cs">
       <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
     </Compile>
-    <Compile Include="medicament.cs">
-      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
-    </Compile>
-    <Compile Include="offrir.cs">
-      <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
-    </Compile>
     <Compile Include="praticien.cs">
       <DependentUpon>ActiviteVisiteur.tt</DependentUpon>
     </Compile>

@@ -14,12 +14,6 @@ namespace ProjetActiviteVisiteurWPF
     
     public partial class rapport_visite
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public rapport_visite()
-        {
-            this.offrir = new HashSet<offrir>();
-        }
-    
         public int RAP_NUM { get; set; }
         public System.DateTime RAP_DATE { get; set; }
         public string RAP_MOTIF { get; set; }
@@ -27,8 +21,6 @@ namespace ProjetActiviteVisiteurWPF
         public short PRA_NUM { get; set; }
         public string VIS_MATRICULE { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<offrir> offrir { get; set; }
         public virtual praticien praticien { get; set; }
         public virtual visiteur visiteur { get; set; }
     }

@@ -63,12 +63,12 @@ namespace ProjetActiviteVisiteurWPF
                         {
                             rapport_visite unRapport = new rapport_visite()
                             {
-                                RAP_NUM = gst.rapport_visite.Max(rap => rap.RAP_NUM),
+                                RAP_NUM = gst.rapport_visite.Max(rap => rap.RAP_NUM) + 1,
                                 RAP_DATE = dpDateRapport.SelectedDate.Value,
                                 RAP_MOTIF = txtMotif.Text,
                                 RAP_BILAN = txtBilan.Text,
-                                PRA_NUM = (cboPraticienRapport.SelectedItem as praticien).PRA_NUM,
-                                VIS_MATRICULE = leVisiteur.VIS_MATRICULE
+                                praticien = cboPraticienRapport.SelectedItem as praticien,
+                                visiteur = leVisiteur
                             };
                             gst.rapport_visite.Add(unRapport);
                             gst.SaveChanges();
@@ -88,9 +88,41 @@ namespace ProjetActiviteVisiteurWPF
             }
             else
             {
-
+                rapport_visite leRapport = lvRapports.SelectedItem as rapport_visite;
+                gst.rapport_visite.Remove(leRapport);
+                gst.SaveChanges();
+                lvRapports.ItemsSource = null;
+                lvRapports.ItemsSource = gst.rapport_visite.ToList().FindAll(rap => rap.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);
             }
         }
 
+        private void btninviter_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvActivites.SelectedItem == null)
+            {
+                MessageBox.Show("Veuillez séléctionner une activité", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                if(cboPraticienActivite.SelectedItem == null)
+                {
+                    MessageBox.Show("Veuillez séléctionner un praticien", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    inviter uneInvitation = new inviter()
+                    {
+                        AC_NUM = (lvActivites.SelectedItem as realiser).AC_NUM,
+                        praticien = cboPraticienActivite.SelectedItem as praticien,
+                        PRESENCE = false,
+                        SPECIALISTEON = false
+                    };
+                    gst.inviter.Add(uneInvitation);
+                    gst.SaveChanges();
+                    lvActivites.ItemsSource = null;
+                    lvActivites.ItemsSource = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);
+                }
+            }
+        }
     }
 }

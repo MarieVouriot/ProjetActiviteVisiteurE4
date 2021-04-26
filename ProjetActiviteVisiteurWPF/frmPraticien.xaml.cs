@@ -25,5 +25,10 @@ namespace ProjetActiviteVisiteurWPF
             InitializeComponent();
             gst = unGst;
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
