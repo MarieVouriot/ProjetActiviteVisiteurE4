@@ -68,7 +68,7 @@ namespace ProjetActiviteVisiteurWPF
                         }
                         else //fenêtre praticien
                         {
-                            frmPraticien frm = new frmPraticien(gst);
+                            frmPraticien frm = new frmPraticien(gst, unPraticien);
                             frm.Show();
                         }
                         

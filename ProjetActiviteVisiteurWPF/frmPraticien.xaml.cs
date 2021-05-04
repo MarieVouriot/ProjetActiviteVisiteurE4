@@ -20,15 +20,18 @@ namespace ProjetActiviteVisiteurWPF
     public partial class frmPraticien : Window
     {
         activite_visiteursEntities gst;
-        public frmPraticien(activite_visiteursEntities unGst)
+        praticien lePraticien;
+        public frmPraticien(activite_visiteursEntities unGst, praticien unPraticien)
         {
             InitializeComponent();
             gst = unGst;
+            lePraticien = unPraticien;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            lvRapports.ItemsSource = gst.rapport_visite.ToList();
+            lvInvitations.ItemsSource = gst.inviter.ToList().FindAll(inv => inv.PRA_NUM == lePraticien.PRA_NUM);
         }
     }
 }

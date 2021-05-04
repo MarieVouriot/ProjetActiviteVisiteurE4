@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjetActiviteVisiteurWPF"
         mc:Ignorable="d"
-        Title="frmPraticien" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="frmPraticien" Height="500" Width="800" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+        <TextBlock Text="Liste des rapports d'activité : " FontSize="30"></TextBlock>
+        <ListView Name="lvRapports" FontSize="15" Grid.Row="0" Margin="10,50,10,10" Background="AliceBlue">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Nom du praticien" Width="130" DisplayMemberBinding="{Binding visiteur.VIS_NOM}"></GridViewColumn>
+                    <GridViewColumn Header="Motif" Width="250" DisplayMemberBinding="{Binding RAP_MOTIF}"></GridViewColumn>
+                    <GridViewColumn Header="Bilan" Width="190" DisplayMemberBinding="{Binding RAP_BILAN}"></GridViewColumn>
+                    <GridViewColumn Header="Date" Width="170" DisplayMemberBinding="{Binding RAP_DATE}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock Text="Liste des invitations : " Grid.Row="1" FontSize="30"></TextBlock>
+        <ListView Name="lvInvitations" FontSize="15" Grid.Row="1" Margin="10,40,10,10" Background="AliceBlue">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Thème activité" Width="180" DisplayMemberBinding="{Binding activite_compl.AC_THEME}" ></GridViewColumn>
+                    <GridViewColumn Header="Lieu" Width="120" DisplayMemberBinding="{Binding activite_compl.AC_LIEU}"></GridViewColumn>
+                    <GridViewColumn Header="Date" Width="180" DisplayMemberBinding="{Binding activite_compl.AC_DATE}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
