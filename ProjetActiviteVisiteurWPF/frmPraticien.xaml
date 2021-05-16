@@ -15,7 +15,7 @@
         <ListView Name="lvRapports" FontSize="15" Grid.Row="0" Margin="10,50,10,10" Background="AliceBlue">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Nom du praticien" Width="130" DisplayMemberBinding="{Binding visiteur.VIS_NOM}"></GridViewColumn>
+                    <GridViewColumn Header="Nom du visiteur" Width="130" DisplayMemberBinding="{Binding visiteur.VIS_NOM}"></GridViewColumn>
                     <GridViewColumn Header="Motif" Width="250" DisplayMemberBinding="{Binding RAP_MOTIF}"></GridViewColumn>
                     <GridViewColumn Header="Bilan" Width="190" DisplayMemberBinding="{Binding RAP_BILAN}"></GridViewColumn>
                     <GridViewColumn Header="Date" Width="170" DisplayMemberBinding="{Binding RAP_DATE}"></GridViewColumn>

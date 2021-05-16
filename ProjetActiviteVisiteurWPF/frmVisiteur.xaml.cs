@@ -34,6 +34,14 @@ namespace ProjetActiviteVisiteurWPF
             lvActivites.ItemsSource = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);
             cboPraticienRapport.ItemsSource = gst.praticien.ToList();
             cboPraticienActivite.ItemsSource = gst.praticien.ToList();
+
+            double total = 0;
+            List<realiser> lesVisitesRealisees = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);            
+            foreach(realiser r in lesVisitesRealisees)
+            {
+                total += r.REA_MTTFRAIS;
+            }
+            txtTotal.Text = total.ToString();
         }
 
         private void btnCréer_Click(object sender, RoutedEventArgs e)
@@ -110,17 +118,25 @@ namespace ProjetActiviteVisiteurWPF
                 }
                 else
                 {
-                    inviter uneInvitation = new inviter()
+                    List<inviter> invationExiste = gst.inviter.ToList().FindAll(inv => inv.AC_NUM == (lvActivites.SelectedItem as realiser).AC_NUM && (cboPraticienActivite.SelectedItem as praticien).PRA_NUM == inv.PRA_NUM);
+                    if(invationExiste.Count != 0)
                     {
-                        AC_NUM = (lvActivites.SelectedItem as realiser).AC_NUM,
-                        praticien = cboPraticienActivite.SelectedItem as praticien,
-                        PRESENCE = false,
-                        SPECIALISTEON = false
-                    };
-                    gst.inviter.Add(uneInvitation);
-                    gst.SaveChanges();
-                    lvActivites.ItemsSource = null;
-                    lvActivites.ItemsSource = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);
+                        MessageBox.Show("Déjà invité", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        inviter uneInvitation = new inviter()
+                        {
+                            AC_NUM = (lvActivites.SelectedItem as realiser).AC_NUM,
+                            praticien = cboPraticienActivite.SelectedItem as praticien,
+                            INVITATION = false,
+                            SPECIALISTEON = false
+                        };
+                        gst.inviter.Add(uneInvitation);
+                        gst.SaveChanges();
+                        MessageBox.Show("Invitation envoyée", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    
                 }
             }
         }

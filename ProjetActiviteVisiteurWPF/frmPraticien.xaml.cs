@@ -31,7 +31,7 @@ namespace ProjetActiviteVisiteurWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lvRapports.ItemsSource = gst.rapport_visite.ToList();
-            lvInvitations.ItemsSource = gst.inviter.ToList().FindAll(inv => inv.PRA_NUM == lePraticien.PRA_NUM);
+            lvInvitations.ItemsSource = gst.inviter.ToList().FindAll(inv => inv.PRA_NUM == lePraticien.PRA_NUM && inv.INVITATION == true);
         }
     }
 }

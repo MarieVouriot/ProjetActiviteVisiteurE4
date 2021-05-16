@@ -11,8 +11,8 @@
           </Key>
           <Property Name="AC_NUM" Type="int" Nullable="false" />
           <Property Name="AC_DATE" Type="datetime" Precision="0" Nullable="false" />
-          <Property Name="AC_LIEU" Type="char" MaxLength="25" Nullable="false" />
-          <Property Name="AC_THEME" Type="char" MaxLength="100" Nullable="false" />
+          <Property Name="AC_LIEU" Type="char" MaxLength="200" Nullable="false" />
+          <Property Name="AC_THEME" Type="char" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="inviter">
           <Key>
@@ -22,7 +22,7 @@
           <Property Name="AC_NUM" Type="int" Nullable="false" />
           <Property Name="PRA_NUM" Type="smallint" Nullable="false" />
           <Property Name="SPECIALISTEON" Type="bool" Nullable="false" />
-          <Property Name="PRESENCE" Type="bool" Nullable="false" />
+          <Property Name="INVITATION" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="praticien">
           <Key>
@@ -40,8 +40,8 @@
           <Key>
             <PropertyRef Name="RAP_NUM" />
           </Key>
-          <Property Name="RAP_NUM" Type="int" Nullable="false" />
-          <Property Name="RAP_DATE" Type="date" Nullable="false" />
+          <Property Name="RAP_NUM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RAP_DATE" Type="date" />
           <Property Name="RAP_MOTIF" Type="char" MaxLength="255" Nullable="false" />
           <Property Name="RAP_BILAN" Type="char" MaxLength="255" Nullable="false" />
           <Property Name="PRA_NUM" Type="smallint" Nullable="false" />
@@ -197,7 +197,7 @@
           <Property Name="SPECIALISTEON" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="activite_compl" Relationship="Self.inviter_ibfk_2" FromRole="inviter" ToRole="activite_compl" />
           <NavigationProperty Name="praticien" Relationship="Self.inviter_ibfk_1" FromRole="inviter" ToRole="praticien" />
-          <Property Name="PRESENCE" Type="Boolean" Nullable="false" />
+          <Property Name="INVITATION" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="praticien">
           <Key>
@@ -374,7 +374,7 @@
           <EntitySetMapping Name="inviter">
             <EntityTypeMapping TypeName="activite_visiteursModel.inviter">
               <MappingFragment StoreEntitySet="inviter">
-                <ScalarProperty Name="PRESENCE" ColumnName="PRESENCE" />
+                <ScalarProperty Name="INVITATION" ColumnName="INVITATION" />
                 <ScalarProperty Name="AC_NUM" ColumnName="AC_NUM" />
                 <ScalarProperty Name="PRA_NUM" ColumnName="PRA_NUM" />
                 <ScalarProperty Name="SPECIALISTEON" ColumnName="SPECIALISTEON" />
