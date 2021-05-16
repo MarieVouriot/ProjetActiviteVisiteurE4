@@ -56,7 +56,7 @@ namespace ProjetActiviteVisiteurWPF
                 MessageBox.Show("Veuillez séléctionner un praticien", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
-            {
+            {                
                 gst.SaveChanges();
             }
         }

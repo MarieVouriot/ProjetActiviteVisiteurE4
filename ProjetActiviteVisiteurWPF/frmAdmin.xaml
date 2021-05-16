@@ -78,7 +78,7 @@
                         <GridViewColumn Header="Accepter" Width="80">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding PRESENCE}"></CheckBox>
+                                    <CheckBox IsChecked="{Binding INVITATION}"></CheckBox>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>                        
