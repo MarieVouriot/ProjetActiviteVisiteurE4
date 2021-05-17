@@ -30,11 +30,13 @@ namespace ProjetActiviteVisiteurWPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Remplissage des ListView et comboBox
             lvRapports.ItemsSource = gst.rapport_visite.ToList().FindAll(rap => rap.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);
             lvActivites.ItemsSource = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);
             cboPraticienRapport.ItemsSource = gst.praticien.ToList();
             cboPraticienActivite.ItemsSource = gst.praticien.ToList();
 
+            // Calcul du total des frais 
             double total = 0;
             List<realiser> lesVisitesRealisees = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == leVisiteur.VIS_MATRICULE);            
             foreach(realiser r in lesVisitesRealisees)
@@ -46,6 +48,7 @@ namespace ProjetActiviteVisiteurWPF
 
         private void btnCréer_Click(object sender, RoutedEventArgs e)
         {
+            // Vérification que les données soient bien entrées dans les comboBox et textBox
             if(cboPraticienRapport.SelectedItem == null)
             {
                 MessageBox.Show("Veuillez séléctionner un praticien", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -69,6 +72,7 @@ namespace ProjetActiviteVisiteurWPF
                             MessageBox.Show("Veuillez séléctionner une date", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
                         }else
                         {
+                            // Création d'un rapport
                             rapport_visite unRapport = new rapport_visite()
                             {
                                 RAP_NUM = gst.rapport_visite.Max(rap => rap.RAP_NUM) + 1,
@@ -96,6 +100,7 @@ namespace ProjetActiviteVisiteurWPF
             }
             else
             {
+                // Suppression du rapport sélectionné
                 rapport_visite leRapport = lvRapports.SelectedItem as rapport_visite;
                 gst.rapport_visite.Remove(leRapport);
                 gst.SaveChanges();
@@ -118,6 +123,7 @@ namespace ProjetActiviteVisiteurWPF
                 }
                 else
                 {
+                    // Vérification que le praticien n'est pas déjà invité à l'activité sélectionnée
                     List<inviter> invationExiste = gst.inviter.ToList().FindAll(inv => inv.AC_NUM == (lvActivites.SelectedItem as realiser).AC_NUM && (cboPraticienActivite.SelectedItem as praticien).PRA_NUM == inv.PRA_NUM);
                     if(invationExiste.Count != 0)
                     {
@@ -125,6 +131,7 @@ namespace ProjetActiviteVisiteurWPF
                     }
                     else
                     {
+                        // invitation créée
                         inviter uneInvitation = new inviter()
                         {
                             AC_NUM = (lvActivites.SelectedItem as realiser).AC_NUM,

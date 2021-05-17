@@ -28,6 +28,7 @@ namespace ProjetActiviteVisiteurWPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Remplissage des listView
             lvVisiteurs.ItemsSource = gst.visiteur.ToList();
             lvPraticiens.ItemsSource = gst.praticien.ToList();
         }
@@ -36,6 +37,7 @@ namespace ProjetActiviteVisiteurWPF
         {
             if(lvVisiteurs.SelectedItem != null)
             {
+                // Remplissage des listView en fonction du visiteur sélectionné
                 lvRapports.ItemsSource = gst.rapport_visite.ToList().FindAll(rap => rap.VIS_MATRICULE == (lvVisiteurs.SelectedItem as visiteur).VIS_MATRICULE);
                 lvActivites.ItemsSource = gst.realiser.ToList().FindAll(rea => rea.VIS_MATRICULE == (lvVisiteurs.SelectedItem as visiteur).VIS_MATRICULE);
             }
@@ -45,6 +47,7 @@ namespace ProjetActiviteVisiteurWPF
         {
             if(lvPraticiens.SelectedItem != null)
             {
+                // Remplissage de la listView en fonction du praticien sélectionné
                 lvInvitations.ItemsSource = gst.inviter.ToList().FindAll(inv => inv.PRA_NUM == (lvPraticiens.SelectedItem as praticien).PRA_NUM);
             }
         }
@@ -56,7 +59,8 @@ namespace ProjetActiviteVisiteurWPF
                 MessageBox.Show("Veuillez séléctionner un praticien", "Erreur de sélection", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
-            {                
+            {
+                // sauvegarde du statut des invitations dans la bdd
                 gst.SaveChanges();
             }
         }

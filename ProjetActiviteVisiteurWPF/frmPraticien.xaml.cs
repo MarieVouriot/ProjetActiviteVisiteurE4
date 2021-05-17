@@ -30,6 +30,7 @@ namespace ProjetActiviteVisiteurWPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Affichage des ListView en fonction du praticien connecté
             lvRapports.ItemsSource = gst.rapport_visite.ToList();
             lvInvitations.ItemsSource = gst.inviter.ToList().FindAll(inv => inv.PRA_NUM == lePraticien.PRA_NUM && inv.INVITATION == true);
         }
